@@ -231,7 +231,6 @@ body {
     justify-content: center;
     align-items: center;
     border: none;
-    outline: none;
     border-radius: 50%;
     outline: 14px solid;
     position: absolute;
@@ -430,7 +429,14 @@ body {
     );
 
     animation: growCircle 5s ease-in-out infinite;
+
     z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .plyr__sel__btn::before {
+        animation: growCircleReduced 1s ease forwards;
+    }
 }
 
 @keyframes growCircle {
@@ -444,6 +450,18 @@ body {
     }
     100% {
         transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+}
+
+@keyframes growCircleReduced {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
 }
