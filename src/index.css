@@ -433,12 +433,6 @@ body {
     z-index: -1;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .plyr__sel__btn::before {
-        animation: growCircleReduced 1s ease forwards;
-    }
-}
-
 @keyframes growCircle {
     0% {
         transform: translate(-50%, -50%) scale(0);
@@ -547,6 +541,27 @@ body {
     gap: 2rem;
     grid-column: span 2;
     animation: showImg 1s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .game__stats {
+        animation: none;
+    }
+    .player__selection,
+    .house__selection {
+        animation: none;
+        transform: translateX(0);
+    }
+
+    .player__sel__btn,
+    .house__sel__btn {
+        animation: none;
+        scale: 1;
+    }
+
+    .plyr__sel__btn::before {
+        animation: growCircleReduced 1s ease forwards;
+    }
 }
 
 .game__stat {
