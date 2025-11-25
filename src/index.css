@@ -31,10 +31,13 @@
     --Light-blue-500: hsl(194, 58%, 42%);
 
     --Navy-900: hsl(229, 25%, 31%);
-    --Blue-700: hsl(229, 64%, 46%);
     --Gray-600: hsl(246, 11%, 37%);
 
-    --Radial-Gradient: hsl(214, 47%, 23%) to hsl(237, 48%, 15%);
+    --bg-Gradient: radial-gradient(
+        circle at 50% 10%,
+        hsl(214, 47%, 23%),
+        hsl(237, 48%, 15%)
+    );
 }
 
 img {
@@ -48,12 +51,7 @@ img {
 body {
     width: 100%;
     min-height: 100vh;
-    width: 100%;
-    background: radial-gradient(
-        circle at 50% 10%,
-        hsl(214, 47%, 23%),
-        hsl(237, 48%, 15%)
-    );
+    background: var(--bg-Gradient);
 }
 
 .main__con {
@@ -109,14 +107,14 @@ body {
 }
 
 .text {
-    font-family: Barlow-500;
+    font-family: Barlow-500, sans-serif;
     text-transform: uppercase;
     color: var(--Blue-700);
     font-size: 1.4rem;
 }
 
 .score__disp {
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif, sans-serif;
     font-size: 5rem;
     color: var(--Gray-600);
 }
@@ -130,13 +128,10 @@ body {
 }
 
 .rules__con {
-    position: absolute;
     background-color: #f1f1f1;
     width: 100%;
     min-height: 100vh;
     height: 100%;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -147,7 +142,7 @@ body {
 .rule__head {
     display: flex;
     justify-content: center;
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
     align-items: center;
     text-transform: uppercase;
     font-size: 2.7rem;
@@ -307,7 +302,7 @@ body {
     background: transparent;
     color: #f1f1f1;
     text-transform: uppercase;
-    font-family: Barlow-500;
+    font-family: Barlow-500, sans-serif;
     font-size: 2rem;
     letter-spacing: 0.2rem;
     width: 15rem;
@@ -321,37 +316,36 @@ body {
     background-color: hsla(0, 0%, 0%, 0.25);
     width: 100%;
     height: 100%;
+    min-height: 100vh;
     position: absolute;
     inset: 0;
     z-index: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .prompt {
     width: 90%;
     max-width: 50rem;
     border-radius: 1rem;
-    position: absolute;
-    z-index: 99;
     background-color: #f1f1f1;
     text-transform: uppercase;
-    font-family: Barlow-500;
+    font-family: Barlow-500, sans-serif;
     text-align: center;
     font-size: 1.8rem;
     padding: 2rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .warning {
     color: var(--Blue-500);
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
 }
 
 .warning__text {
     color: var(--Red-600);
     margin-block-start: 1rem;
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
     font-size: 1.9rem;
 }
 
@@ -366,7 +360,7 @@ body {
     border: none;
     background: transparent;
     text-transform: uppercase;
-    font-family: Barlow-500;
+    font-family: Barlow-500, sans-serif;
     font-size: 2rem;
     letter-spacing: 0.2rem;
     width: 10rem;
@@ -540,7 +534,7 @@ body {
 .game__stat {
     text-transform: uppercase;
     color: #f1f1f1;
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
     font-size: 4.2rem;
     letter-spacing: 0.1rem;
 }
@@ -548,7 +542,7 @@ body {
 .new__game__btn {
     text-transform: uppercase;
     letter-spacing: 0.3rem;
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
     padding: 1.4rem 3.6rem;
     font-size: 1.4rem;
     border-radius: 1rem;
@@ -563,7 +557,7 @@ body {
 
 .sel__text {
     font-size: 1.6rem;
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
     color: #f1f1f1;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
@@ -571,7 +565,7 @@ body {
 
 .attribution {
     font-size: 1.6rem;
-    font-family: Barlow-700;
+    font-family: Barlow-700, sans-serif;
     color: #f1f1f1;
     text-align: center;
     margin-block-start: 4rem;
@@ -608,7 +602,6 @@ body {
     }
 
     .score__disp {
-        font-family: Barlow-700;
         font-size: 5rem;
         color: var(--Gray-600);
     }
@@ -819,18 +812,11 @@ body {
     }
 
     .rules__con {
-        position: fixed;
-        background-color: #f1f1f1;
         width: 42rem;
         height: 42rem;
         min-height: unset;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         border-radius: 1rem;
         padding: 2rem;
-        display: flex;
-        flex-direction: column;
         align-items: center;
     }
 

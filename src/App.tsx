@@ -64,14 +64,12 @@ function App() {
     const [gameType, setGameType] = useState<game>("normal");
     const [gameToggle, setGameToggle] = useState<boolean>(false);
     const [showRules, setShowRules] = useState<boolean>(false);
-    const [modal, setModal] = useState<boolean>(false);
     const [playerSel, setPlayerSel] = useState<Selections>("");
     const [houseSel, setHouseSel] = useState<Selections>("");
     const [gameEnd, setGameEnd] = useState<gameEnd>("");
 
     function toggleRule() {
         setShowRules((prev) => !prev);
-        openModal();
     }
 
     function toggleMode() {
@@ -83,11 +81,6 @@ function App() {
 
     function toggleGame() {
         setGameToggle((prev) => !prev);
-        openModal();
-    }
-
-    function openModal() {
-        setModal((prev) => !prev);
     }
 
     function playAgain() {
@@ -232,193 +225,217 @@ function App() {
     );
 
     return (
-        <main className="main">
-            <header className="main__header">
-                {gameType === "normal" && (
-                    <img src={logo} alt="" className="main__logo" />
-                )}
-                {gameType === "bonus" && (
-                    <img src={bonusLogo} alt="" className="main__logo" />
-                )}
-                <div className="score">
-                    <h1 className="text">score</h1>
-                    <p className="score__disp">{score}</p>
-                </div>
-            </header>
-            <section className="game__section">
-                {modal === true && <div className="modal"></div>}
-                {gameToggle === true && (
-                    <div className="prompt ">
-                        <p>
-                            you're currently playing the{" "}
-                            <span className="warning">{gameType}</span> game, Do
-                            you wish to switch to{" "}
-                            <span className="warning">
-                                {gameType === "normal" ? "bonus" : "normal"}
-                            </span>{" "}
-                            game ?
-                        </p>
-                        <p className="warning__text">
-                            This will reset your score
-                        </p>
-                        <div className="prompt__btns__con">
-                            <button
-                                onClick={toggleGame}
-                                className="prompt__btn cancel"
-                            >
-                                cancel
-                            </button>
-                            <button
-                                onClick={toggleMode}
-                                className="prompt__btn confirm"
-                            >
-                                confirm
-                            </button>
-                        </div>
+        <main className="main__con">
+            <section className="main">
+                <header className="main__header">
+                    {gameType === "normal" && (
+                        <img src={logo} alt="" className="main__logo" />
+                    )}
+                    {gameType === "bonus" && (
+                        <img src={bonusLogo} alt="" className="main__logo" />
+                    )}
+                    <div className="score">
+                        <h1 className="text">score</h1>
+                        <p className="score__disp">{score}</p>
                     </div>
-                )}
-                {gameType === "normal" && playerSel === "" && (
-                    <div className="normal__game__btns__con">
-                        {normalSelections.map((selection) => (
-                            <button
-                                type="button"
-                                key={selection.name}
-                                onClick={() => playSel(selection.name)}
-                                className={`game__btn ${selection.className}`}
-                            >
-                                <img
-                                    className="btn__icon"
-                                    src={selection.img}
-                                    alt={`${selection.name} icon`}
-                                />
-                            </button>
-                        ))}
-                    </div>
-                )}
-                {gameType === "bonus" && playerSel === "" && (
-                    <div className="bonus__game__btns__con">
-                        {allSelections.map((selection) => (
-                            <button
-                                type="button"
-                                key={selection.name}
-                                onClick={() => playSel(selection.name)}
-                                className={`bns__game__btn ${selection.bnsClass}`}
-                            >
-                                <img
-                                    src={selection.img}
-                                    alt={`${selection.name} icon`}
-                                />
-                            </button>
-                        ))}
-                    </div>
-                )}
-                {playerSel !== "" && (
-                    <section className="played__section">
-                        <div className="game__selections">
-                            <div className="player__selection">
-                                <div
-                                    className={`selected__btn ${
-                                        gameEnd === "win" && "plyr__sel__btn "
-                                    } `}
-                                >
-                                    {allSelections.map(
-                                        (gamesel) =>
-                                            playerSel === gamesel.name && (
-                                                <div
-                                                    key={gamesel.name}
-                                                    className={`player__sel__btn ${gamesel.name}`}
-                                                >
-                                                    <img
-                                                        src={gamesel.img}
-                                                        alt={`${gamesel.name} icon`}
-                                                    />
-                                                </div>
-                                            )
-                                    )}
-                                </div>
-                                <p className="sel__text">You picked</p>
-                            </div>
-                            <div className="house__selection">
-                                <div
-                                    className={`selected__btn ${
-                                        gameEnd === "lose" && "plyr__sel__btn "
-                                    } `}
-                                >
-                                    {allSelections.map(
-                                        (gamesel) =>
-                                            houseSel === gamesel.name && (
-                                                <div
-                                                    key={gamesel.name}
-                                                    className={`player__sel__btn ${gamesel.name}`}
-                                                >
-                                                    <img
-                                                        src={gamesel.img}
-                                                        alt={`${gamesel.name} icon`}
-                                                    />
-                                                </div>
-                                            )
-                                    )}
-                                </div>
-                                <p className="sel__text">the house picked</p>
-                            </div>
-
-                            {gameEnd !== "" && (
-                                <div className="game__stats">
-                                    <p className="game__stat">
-                                        {gameEnd === "win"
-                                            ? "you win"
-                                            : gameEnd === "lose"
-                                            ? "you lose"
-                                            : "draw"}
-                                    </p>
-
+                </header>
+                <section className="game__section">
+                    {gameToggle === true && (
+                        <div className="modal">
+                            <div className="prompt ">
+                                <p>
+                                    you're currently playing the{" "}
+                                    <span className="warning">{gameType}</span>{" "}
+                                    game, Do you wish to switch to{" "}
+                                    <span className="warning">
+                                        {gameType === "normal"
+                                            ? "bonus"
+                                            : "normal"}
+                                    </span>{" "}
+                                    game ?
+                                </p>
+                                <p className="warning__text">
+                                    This will reset your score
+                                </p>
+                                <div className="prompt__btns__con">
                                     <button
-                                        onClick={playAgain}
-                                        className="new__game__btn"
+                                        type="button"
+                                        onClick={toggleGame}
+                                        className="prompt__btn cancel"
                                     >
-                                        play again
+                                        cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={toggleMode}
+                                        className="prompt__btn confirm"
+                                    >
+                                        confirm
                                     </button>
                                 </div>
-                            )}
+                            </div>
                         </div>
-                    </section>
-                )}
-                <div className="game__settings">
-                    <button className="game__set" onClick={toggleRule}>
-                        rules
-                    </button>
-                    {playerSel === "" && (
-                        <button onClick={toggleGame} className="game__set">
-                            Game Mode
-                        </button>
                     )}
-                </div>
-
-                {showRules === true && (
-                    <div className="rules__con">
-                        <div className="rule__head">
-                            <h2 className="rules">rules</h2>
-                            <button
-                                className="close__btn mb__hidden"
-                                onClick={toggleRule}
-                            >
-                                <img src={closeIcon} alt="close" />
-                            </button>
+                    {gameType === "normal" && playerSel === "" && (
+                        <div className="normal__game__btns__con">
+                            {normalSelections.map((selection) => (
+                                <button
+                                    type="button"
+                                    key={selection.name}
+                                    onClick={() => playSel(selection.name)}
+                                    className={`game__btn ${selection.className}`}
+                                >
+                                    <img
+                                        className="btn__icon"
+                                        src={selection.img}
+                                        alt={`${selection.name} icon`}
+                                    />
+                                </button>
+                            ))}
                         </div>
-                        {gameType === "normal" && (
-                            <img src={rules} alt="rules" />
-                        )}
-                        {gameType === "bonus" && (
-                            <img src={bonusRules} alt="rules" />
-                        )}
+                    )}
+                    {gameType === "bonus" && playerSel === "" && (
+                        <div className="bonus__game__btns__con">
+                            {allSelections.map((selection) => (
+                                <button
+                                    type="button"
+                                    key={selection.name}
+                                    onClick={() => playSel(selection.name)}
+                                    className={`bns__game__btn ${selection.bnsClass}`}
+                                >
+                                    <img
+                                        src={selection.img}
+                                        alt={`${selection.name} icon`}
+                                    />
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    {playerSel !== "" && (
+                        <section className="played__section">
+                            <div className="game__selections">
+                                <div className="player__selection">
+                                    <div
+                                        className={`selected__btn ${
+                                            gameEnd === "win" &&
+                                            "plyr__sel__btn "
+                                        } `}
+                                    >
+                                        {allSelections.map(
+                                            (gamesel) =>
+                                                playerSel === gamesel.name && (
+                                                    <div
+                                                        key={gamesel.name}
+                                                        className={`player__sel__btn ${gamesel.name}`}
+                                                    >
+                                                        <img
+                                                            src={gamesel.img}
+                                                            alt={`${gamesel.name} icon`}
+                                                        />
+                                                    </div>
+                                                )
+                                        )}
+                                    </div>
+                                    <p className="sel__text">You picked</p>
+                                </div>
+                                <div className="house__selection">
+                                    <div
+                                        className={`selected__btn ${
+                                            gameEnd === "lose" &&
+                                            "plyr__sel__btn "
+                                        } `}
+                                    >
+                                        {allSelections.map(
+                                            (gamesel) =>
+                                                houseSel === gamesel.name && (
+                                                    <div
+                                                        key={gamesel.name}
+                                                        className={`player__sel__btn ${gamesel.name}`}
+                                                    >
+                                                        <img
+                                                            src={gamesel.img}
+                                                            alt={`${gamesel.name} icon`}
+                                                        />
+                                                    </div>
+                                                )
+                                        )}
+                                    </div>
+                                    <p className="sel__text">
+                                        the house picked
+                                    </p>
+                                </div>
+
+                                {gameEnd !== "" && (
+                                    <div className="game__stats">
+                                        <p className="game__stat">
+                                            {gameEnd === "win"
+                                                ? "you win"
+                                                : gameEnd === "lose"
+                                                ? "you lose"
+                                                : "draw"}
+                                        </p>
+
+                                        <button
+                                            type="button"
+                                            onClick={playAgain}
+                                            className="new__game__btn"
+                                        >
+                                            play again
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    )}
+                    <div className="game__settings">
                         <button
-                            className="close__btn lg__hidden"
+                            type="button"
+                            className="game__set"
                             onClick={toggleRule}
                         >
-                            <img src={closeIcon} alt="close" />
+                            rules
                         </button>
+                        {playerSel === "" && (
+                            <button
+                                type="button"
+                                onClick={toggleGame}
+                                className="game__set"
+                            >
+                                Game Mode
+                            </button>
+                        )}
                     </div>
-                )}
+
+                    {showRules === true && (
+                        <div className="modal">
+                            <div className="rules__con">
+                                <div className="rule__head">
+                                    <h2 className="rules">rules</h2>
+                                    <button
+                                        type="button"
+                                        className="close__btn mb__hidden"
+                                        onClick={toggleRule}
+                                    >
+                                        <img src={closeIcon} alt="close" />
+                                    </button>
+                                </div>
+                                {gameType === "normal" && (
+                                    <img src={rules} alt="rules" />
+                                )}
+                                {gameType === "bonus" && (
+                                    <img src={bonusRules} alt="rules" />
+                                )}
+                                <button
+                                    type="button"
+                                    className="close__btn lg__hidden"
+                                    onClick={toggleRule}
+                                >
+                                    <img src={closeIcon} alt="close" />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </section>
             </section>
 
             <p className="attribution">
