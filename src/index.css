@@ -48,7 +48,6 @@ img {
 body {
     width: 100%;
     min-height: 100vh;
-
     background: radial-gradient(
         circle at 50% 10%,
         hsl(214, 47%, 23%),
@@ -73,7 +72,7 @@ body {
     border: 3px solid var(--Navy-900);
     border-radius: 1rem;
     width: 100%;
-    max-width: 70rem;
+    max-width: 60rem;
     margin-inline: auto;
     padding: 1rem;
     margin: 2rem 0 10rem;
@@ -82,7 +81,7 @@ body {
 .main__logo {
     width: 9rem;
     height: auto;
-    margin-left: 1rem;
+    margin-inline-start: 1rem;
 }
 
 .score {
@@ -131,12 +130,14 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    z-index: 99;
 }
 
 .rule__head {
     display: flex;
     justify-content: center;
     font-family: Barlow-700;
+    align-items: center;
     text-transform: uppercase;
     font-size: 2.7rem;
     color: var(--Navy-900);
@@ -153,9 +154,9 @@ body {
 
 .normal__game__btns__con {
     position: relative;
-    margin-top: 4rem;
+    margin-block-start: 4rem;
     min-height: 20rem;
-    height: 100%;
+    height: auto;
     width: 28rem;
     margin-inline: auto;
     background: url("./assets/images/bg-triangle.svg") center / contain
@@ -164,10 +165,10 @@ body {
 
 .bonus__game__btns__con {
     position: relative;
-    margin-top: 4rem;
-    margin-bottom: 10rem;
+    margin-block-start: 4rem;
+    margin-block-end: 10rem;
     min-height: 20rem;
-    height: 100%;
+    height: auto;
     width: 28rem;
     margin-inline: auto;
     background: url("./assets/images/bg-pentagon.svg") center / contain
@@ -186,6 +187,7 @@ body {
     border-radius: 50%;
     outline: 18px solid;
     position: absolute;
+    cursor: pointer;
 }
 
 .paper__btn {
@@ -227,6 +229,7 @@ body {
     border-radius: 50%;
     outline: 14px solid;
     position: absolute;
+    cursor: pointer;
 
     img {
         width: 4rem;
@@ -283,7 +286,9 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 6rem;
+    margin-block-start: 6rem;
+    max-width: 120rem;
+    margin-inline: auto;
 }
 
 .game__set {
@@ -297,7 +302,8 @@ body {
     width: 15rem;
     padding: 1rem;
     border-radius: 0.8rem;
-    margin-bottom: 1rem;
+    margin-block-end: 1rem;
+    cursor: pointer;
 }
 
 .modal {
@@ -305,23 +311,22 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
+    inset: 0;
+    z-index: 9;
 }
 
 .prompt {
     width: 90%;
-    border-radius: 0.8rem;
+    max-width: 50rem;
+    border-radius: 1rem;
     position: absolute;
-    z-index: 999;
+    z-index: 99;
     background-color: #f1f1f1;
     text-transform: uppercase;
     font-family: Barlow-500;
     text-align: center;
     font-size: 1.8rem;
-    padding: 1rem;
+    padding: 2rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -334,7 +339,7 @@ body {
 
 .warning__text {
     color: var(--Red-600);
-    margin-top: 1rem;
+    margin-block-start: 1rem;
     font-family: Barlow-700;
     font-size: 1.9rem;
 }
@@ -343,7 +348,7 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 2rem;
+    margin-block-start: 2rem;
 }
 
 .prompt__btn {
@@ -356,8 +361,9 @@ body {
     width: 10rem;
     padding: 0.7rem 1rem;
     border-radius: 0.8rem;
-    margin-bottom: 1rem;
+    margin-block-end: 1rem;
     color: #f1f1f1;
+    cursor: pointer;
 }
 
 .cancel {
@@ -370,11 +376,13 @@ body {
 
 .game__selections {
     width: 100%;
+    max-width: 90rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-content: space-between;
-    margin-bottom: 8rem;
+    margin-block-end: 8rem;
     row-gap: 3rem;
+    margin-inline: auto;
 }
 
 .player__selection {
@@ -417,7 +425,7 @@ body {
     );
 
     animation: growCircle 5s ease-in-out infinite;
-    animation-delay: 1s;
+    z-index: -1;
 }
 
 @keyframes growCircle {
@@ -475,6 +483,7 @@ body {
         scale: 1;
     }
 }
+
 .player__sel__btn.paper,
 .house__sel__btn.paper {
     outline-color: var(--Blue-500);
@@ -507,7 +516,7 @@ body {
 }
 
 .game__stats {
-    margin-top: 4.5rem;
+    margin-block-start: 4.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -521,7 +530,7 @@ body {
     text-transform: uppercase;
     color: #f1f1f1;
     font-family: Barlow-700;
-    font-size: 3.5rem;
+    font-size: 4.2rem;
     letter-spacing: 0.1rem;
 }
 
@@ -529,11 +538,16 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.3rem;
     font-family: Barlow-700;
-    padding: 1.3rem 3rem;
+    padding: 1.4rem 3.6rem;
     font-size: 1.4rem;
     border-radius: 1rem;
     border: none;
     background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.new__game__btn:hover {
+    color: var(--Red-600);
 }
 
 .sel__text {
@@ -549,10 +563,267 @@ body {
     font-family: Barlow-700;
     color: #f1f1f1;
     text-align: center;
-    margin-top: 4rem;
+    margin-block-start: 4rem;
 }
 
 .attribution a {
     text-decoration: none;
     color: var(--Blue-500);
+}
+
+@media (min-width: 45rem) {
+    .mb__hidden {
+        display: block;
+    }
+
+    .lg__hidden {
+        display: none;
+    }
+
+    .main__logo {
+        width: 12rem;
+    }
+
+    .score {
+        width: 12rem;
+        height: 9rem;
+        padding: 2rem;
+    }
+
+    .text {
+        font-size: 1.6rem;
+    }
+
+    .score__disp {
+        font-family: Barlow-700;
+        font-size: 5rem;
+        color: var(--Gray-600);
+    }
+
+    .normal__game__btns__con {
+        height: 32rem;
+        width: 30rem;
+        margin-block-start: 6rem;
+    }
+
+    .bonus__game__btns__con {
+        height: 30rem;
+        width: 30rem;
+        margin-block-start: 6rem;
+    }
+
+    .game__btn {
+        width: 16rem;
+        height: 16rem;
+        outline-width: 24px;
+    }
+
+    .paper__btn {
+        left: 0;
+        top: -50%;
+        transform: translate(-50%, 50%);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -2px 10px 0 22px hsl(229, 64%, 46%);
+    }
+
+    .scissors__btn {
+        right: 0;
+        top: -50%;
+        transform: translate(50%, 50%);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -2px 10px 0 22px hsl(28, 76%, 44%);
+    }
+
+    .rock__btn {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -2px 10px 0 22px hsl(347, 75%, 35%);
+    }
+
+    .bns__game__btn {
+        width: 10rem;
+        height: 10rem;
+        outline-width: 18px;
+
+        img {
+            width: 4rem;
+        }
+    }
+
+    .bns__paper__btn {
+        right: 0;
+        top: 50%;
+        transform: translate(50%, -80%);
+        box-shadow: inset -1px 6px 0 rgba(157, 155, 155, 0.4),
+            -1px 7px 0 16px hsl(229, 64%, 46%);
+    }
+
+    .bns__scissors__btn {
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -50%);
+        box-shadow: inset -1px 5px 0 rgba(157, 155, 155, 0.4),
+            -1px 4px 0 14px hsl(28, 76%, 44%);
+    }
+
+    .bns__rock__btn {
+        bottom: 0;
+        right: 0;
+        transform: translate(0, 50%);
+        box-shadow: inset -1px 5px 0 rgba(157, 155, 155, 0.4),
+            -1px 4px 0 14px hsl(347, 75%, 35%);
+    }
+
+    .bns__lizard__btn {
+        bottom: 0;
+        left: 0;
+        transform: translate(0, 50%);
+        box-shadow: inset -1px 5px 0 rgba(157, 155, 155, 0.4),
+            -1px 4px 0 14px hsl(261, 51%, 44%);
+    }
+
+    .bns__spock__btn {
+        outline-color: var(--Light-blue-400);
+        left: 0;
+        top: 50%;
+        transform: translate(-50%, -80%);
+        box-shadow: inset -1px 5px 0 rgba(157, 155, 155, 0.4),
+            -1px 4px 0 14px hsl(194, 58%, 42%);
+    }
+
+    .player__selection {
+        flex-direction: column-reverse;
+        gap: 8rem;
+        transform: translateX(20%);
+    }
+
+    .house__selection {
+        flex-direction: column-reverse;
+        gap: 8rem;
+        transform: translateX(-20%);
+    }
+
+    .selected__btn {
+        width: 16rem;
+        height: 16rem;
+    }
+
+    .sel__text {
+        font-size: 2.2rem;
+    }
+
+    .player__sel__btn.paper,
+    .house__sel__btn.paper {
+        outline-color: var(--Blue-500);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -1px 10px 0 20px hsl(229, 64%, 46%);
+    }
+    .player__sel__btn.scissors,
+    .house__sel__btn.scissors {
+        outline-color: var(--Gold-500);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -1px 10px 0 20px hsl(28, 76%, 44%);
+    }
+    .player__sel__btn.rock,
+    .house__sel__btn.rock {
+        outline-color: var(--Red-600);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -1px 10px 0 20px hsl(347, 75%, 35%);
+    }
+    .player__sel__btn.lizard,
+    .house__sel__btn.lizard {
+        outline-color: var(--Purple-600);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -1px 10px 0 20px hsl(261, 51%, 44%);
+    }
+    .player__sel__btn.spock,
+    .house__sel__btn.spock {
+        outline-color: var(--Light-blue-400);
+        box-shadow: inset -1px 10px 0 rgba(157, 155, 155, 0.4),
+            -1px 10px 0 20px hsl(194, 58%, 42%);
+    }
+
+    .player__sel__btn,
+    .house__sel__btn {
+        outline-width: 2.2rem;
+    }
+
+    .player__selection {
+        order: -1;
+        animation: movePlayer 1s ease 2s forwards;
+
+        img {
+            width: 6rem;
+        }
+    }
+
+    .house__selection {
+        order: 1;
+        animation: moveHouse 1s ease 2s forwards;
+
+        img {
+            width: 6rem;
+        }
+    }
+
+    .plyr__sel__btn::before {
+        width: 52rem;
+        height: 52rem;
+    }
+
+    .game__selections {
+        display: flex;
+        justify-content: center;
+    }
+
+    .game__stats {
+        order: 0;
+        width: 100%;
+    }
+
+    .game__settings {
+        align-items: flex-end;
+    }
+
+    @keyframes movePlayer {
+        0% {
+            transform: translateX(20);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes moveHouse {
+        0% {
+            transform: translateX(-20%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .rules__con {
+        position: fixed;
+        background-color: #f1f1f1;
+        width: 42rem;
+        height: 42rem;
+        min-height: unset;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 1rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rule__head {
+        justify-content: space-between;
+        width: 100%;
+        padding-inline: 1.6rem;
+    }
 }

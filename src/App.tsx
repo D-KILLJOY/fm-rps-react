@@ -13,25 +13,76 @@ import bonusRules from "./assets/images/image-rules-bonus.svg";
 
 type game = "normal" | "bonus";
 type gameEnd = "win" | "draw" | "lose" | "";
-type selections = "rock" | "paper" | "scissors" | "lizard" | "spock" | "";
+type Selections = "rock" | "paper" | "scissors" | "lizard" | "spock" | "";
+
+type GameSels = {
+    name: Selections;
+    className: string;
+    img: string;
+    bnsClass: string;
+};
+
+const normalSelections: GameSels[] = [
+    {
+        name: "rock",
+        className: "rock__btn",
+        img: rock,
+        bnsClass: "bns__rock__btn",
+    },
+    {
+        name: "paper",
+        className: "paper__btn",
+        img: paper,
+        bnsClass: "bns__paper__btn",
+    },
+    {
+        name: "scissors",
+        className: "scissors__btn",
+        img: scissors,
+        bnsClass: "bns__scissors__btn",
+    },
+];
+
+const allSelections: GameSels[] = [
+    ...normalSelections,
+    {
+        name: "spock",
+        className: "spock__btn",
+        img: spock,
+        bnsClass: "bns__spock__btn",
+    },
+    {
+        name: "lizard",
+        className: "lizard__btn",
+        img: lizard,
+        bnsClass: "bns__lizard__btn",
+    },
+];
 
 function App() {
     const [score, setScore] = useState<number>(0);
     const [gameType, setGameType] = useState<game>("normal");
+    const [gameToggle, setGameToggle] = useState<boolean>(false);
     const [showRules, setShowRules] = useState<boolean>(false);
     const [modal, setModal] = useState<boolean>(false);
-    const [playerSel, setPlayerSel] = useState<selections>("");
-    const [houseSel, setHouseSel] = useState<selections>("");
+    const [playerSel, setPlayerSel] = useState<Selections>("");
+    const [houseSel, setHouseSel] = useState<Selections>("");
     const [gameEnd, setGameEnd] = useState<gameEnd>("");
 
     function toggleRule() {
         setShowRules((prev) => !prev);
+        openModal();
     }
 
     function toggleMode() {
         setGameType((prev) => (prev === "normal" ? "bonus" : "normal"));
         setPlayerSel("");
         setScore(0);
+        toggleGame();
+    }
+
+    function toggleGame() {
+        setGameToggle((prev) => !prev);
         openModal();
     }
 
@@ -144,7 +195,7 @@ function App() {
         [houseSel]
     );
 
-    function playSel(play: selections) {
+    function playSel(play: Selections) {
         play === "rock"
             ? setPlayerSel("rock")
             : play === "paper"
@@ -159,7 +210,7 @@ function App() {
     useEffect(
         function delay() {
             setTimeout(function genHouseSel() {
-                const houseSels: selections[] = [
+                const houseSels: Selections[] = [
                     "rock",
                     "paper",
                     "scissors",
@@ -196,17 +247,15 @@ function App() {
             </header>
             <section className="game__section">
                 {modal === true && <div className="modal"></div>}
-                {modal === true && (
+                {gameToggle === true && (
                     <div className="prompt ">
                         <p>
                             you're currently playing the{" "}
-                            <span className="warning">{gameType}</span> game,
-                        </p>
-                        <p>
-                            Do you wish to switch to{" "}
+                            <span className="warning">{gameType}</span> game, Do
+                            you wish to switch to{" "}
                             <span className="warning">
                                 {gameType === "normal" ? "bonus" : "normal"}
-                            </span>
+                            </span>{" "}
                             game ?
                         </p>
                         <p className="warning__text">
@@ -214,7 +263,7 @@ function App() {
                         </p>
                         <div className="prompt__btns__con">
                             <button
-                                onClick={openModal}
+                                onClick={toggleGame}
                                 className="prompt__btn cancel"
                             >
                                 cancel
@@ -230,58 +279,37 @@ function App() {
                 )}
                 {gameType === "normal" && playerSel === "" && (
                     <div className="normal__game__btns__con">
-                        <button
-                            onClick={() => playSel("paper")}
-                            className="game__btn paper__btn"
-                        >
-                            <img src={paper} alt="paper" />
-                        </button>
-                        <button
-                            onClick={() => playSel("scissors")}
-                            className="game__btn scissors__btn"
-                        >
-                            <img src={scissors} alt="scissors" />
-                        </button>
-                        <button
-                            onClick={() => playSel("rock")}
-                            className="game__btn rock__btn"
-                        >
-                            <img src={rock} alt="rock" />
-                        </button>
+                        {normalSelections.map((selection) => (
+                            <button
+                                type="button"
+                                key={selection.name}
+                                onClick={() => playSel(selection.name)}
+                                className={`game__btn ${selection.className}`}
+                            >
+                                <img
+                                    className="btn__icon"
+                                    src={selection.img}
+                                    alt={`${selection.name} icon`}
+                                />
+                            </button>
+                        ))}
                     </div>
                 )}
                 {gameType === "bonus" && playerSel === "" && (
                     <div className="bonus__game__btns__con">
-                        <button
-                            onClick={() => playSel("spock")}
-                            className="bns__game__btn bns__spock__btn"
-                        >
-                            <img src={spock} alt="spock" />
-                        </button>
-                        <button
-                            onClick={() => playSel("scissors")}
-                            className="bns__game__btn bns__scissors__btn"
-                        >
-                            <img src={scissors} alt="scissors" />
-                        </button>
-                        <button
-                            onClick={() => playSel("paper")}
-                            className="bns__game__btn bns__paper__btn"
-                        >
-                            <img src={paper} alt="paper" />
-                        </button>
-                        <button
-                            onClick={() => playSel("rock")}
-                            className="bns__game__btn bns__rock__btn"
-                        >
-                            <img src={rock} alt="rock" />
-                        </button>
-                        <button
-                            onClick={() => playSel("lizard")}
-                            className="bns__game__btn bns__lizard__btn"
-                        >
-                            <img src={lizard} alt="lizard" />
-                        </button>
+                        {allSelections.map((selection) => (
+                            <button
+                                type="button"
+                                key={selection.name}
+                                onClick={() => playSel(selection.name)}
+                                className={`bns__game__btn ${selection.bnsClass}`}
+                            >
+                                <img
+                                    src={selection.img}
+                                    alt={`${selection.name} icon`}
+                                />
+                            </button>
+                        ))}
                     </div>
                 )}
                 {playerSel !== "" && (
@@ -293,42 +321,19 @@ function App() {
                                         gameEnd === "win" && "plyr__sel__btn "
                                     } `}
                                 >
-                                    {playerSel === "rock" && (
-                                        <div className="player__sel__btn rock">
-                                            <img
-                                                className="selImg"
-                                                src={rock}
-                                                alt="rock"
-                                            />
-                                        </div>
-                                    )}
-                                    {playerSel === "paper" && (
-                                        <div className="player__sel__btn paper">
-                                            <img
-                                                className="selImg"
-                                                src={paper}
-                                                alt="paper"
-                                            />
-                                        </div>
-                                    )}
-                                    {playerSel === "scissors" && (
-                                        <div className="player__sel__btn scissors">
-                                            <img
-                                                className="selImg"
-                                                src={scissors}
-                                                alt="scissors"
-                                            />
-                                        </div>
-                                    )}
-                                    {playerSel === "spock" && (
-                                        <div className="player__sel__btn spock">
-                                            <img src={spock} alt="spock" />
-                                        </div>
-                                    )}
-                                    {playerSel === "lizard" && (
-                                        <div className="player__sel__btn lizard">
-                                            <img src={lizard} alt="lizard" />
-                                        </div>
+                                    {allSelections.map(
+                                        (gamesel) =>
+                                            playerSel === gamesel.name && (
+                                                <div
+                                                    key={gamesel.name}
+                                                    className={`player__sel__btn ${gamesel.name}`}
+                                                >
+                                                    <img
+                                                        src={gamesel.img}
+                                                        alt={`${gamesel.name} icon`}
+                                                    />
+                                                </div>
+                                            )
                                     )}
                                 </div>
                                 <p className="sel__text">You picked</p>
@@ -339,33 +344,19 @@ function App() {
                                         gameEnd === "lose" && "plyr__sel__btn "
                                     } `}
                                 >
-                                    {houseSel === "rock" && (
-                                        <div className="house__sel__btn rock">
-                                            <img src={rock} alt="rock" />
-                                        </div>
-                                    )}
-                                    {houseSel === "paper" && (
-                                        <div className="house__sel__btn paper">
-                                            <img src={paper} alt="paper" />
-                                        </div>
-                                    )}
-                                    {houseSel === "scissors" && (
-                                        <div className="house__sel__btn scissors">
-                                            <img
-                                                src={scissors}
-                                                alt="scissors"
-                                            />
-                                        </div>
-                                    )}
-                                    {houseSel === "spock" && (
-                                        <div className="house__sel__btn spock">
-                                            <img src={spock} alt="spock" />
-                                        </div>
-                                    )}
-                                    {houseSel === "lizard" && (
-                                        <div className="house__sel__btn lizard">
-                                            <img src={lizard} alt="lizard" />
-                                        </div>
+                                    {allSelections.map(
+                                        (gamesel) =>
+                                            houseSel === gamesel.name && (
+                                                <div
+                                                    key={gamesel.name}
+                                                    className={`player__sel__btn ${gamesel.name}`}
+                                                >
+                                                    <img
+                                                        src={gamesel.img}
+                                                        alt={`${gamesel.name} icon`}
+                                                    />
+                                                </div>
+                                            )
                                     )}
                                 </div>
                                 <p className="sel__text">the house picked</p>
@@ -397,7 +388,7 @@ function App() {
                         rules
                     </button>
                     {playerSel === "" && (
-                        <button onClick={openModal} className="game__set">
+                        <button onClick={toggleGame} className="game__set">
                             Game Mode
                         </button>
                     )}
@@ -420,12 +411,16 @@ function App() {
                         {gameType === "bonus" && (
                             <img src={bonusRules} alt="rules" />
                         )}
-                        <button className="close__btn" onClick={toggleRule}>
+                        <button
+                            className="close__btn lg__hidden"
+                            onClick={toggleRule}
+                        >
                             <img src={closeIcon} alt="close" />
                         </button>
                     </div>
                 )}
             </section>
+
             <p className="attribution">
                 Challenge by{" "}
                 <a
