@@ -105,99 +105,40 @@ function App() {
         }
     }, [gameEnd]);
 
-    useEffect(
-        function delay() {
-            setTimeout(function dispSel() {
-                if (houseSel !== "") {
-                    if (gameType === "normal") {
-                        if (playerSel === "rock") {
-                            houseSel === "rock"
-                                ? setGameEnd("draw")
-                                : houseSel === "paper"
-                                ? setGameEnd("lose")
-                                : setGameEnd("win");
-                        } else if (playerSel === "paper") {
-                            houseSel === "rock"
-                                ? setGameEnd("win")
-                                : houseSel === "paper"
-                                ? setGameEnd("draw")
-                                : setGameEnd("lose");
-                        } else {
-                            houseSel === "rock"
-                                ? setGameEnd("lose")
-                                : houseSel === "paper"
-                                ? setGameEnd("win")
-                                : setGameEnd("draw");
-                        }
-                    } else if (gameType === "bonus") {
-                        if (playerSel === "rock") {
-                            houseSel === "rock"
-                                ? setGameEnd("draw")
-                                : houseSel === "paper"
-                                ? setGameEnd("lose")
-                                : houseSel === "scissors"
-                                ? setGameEnd("win")
-                                : houseSel === "lizard"
-                                ? setGameEnd("win")
-                                : setGameEnd("lose");
-                        } else if (playerSel === "paper") {
-                            houseSel === "rock"
-                                ? setGameEnd("win")
-                                : houseSel === "paper"
-                                ? setGameEnd("draw")
-                                : houseSel === "scissors"
-                                ? setGameEnd("lose")
-                                : houseSel === "lizard"
-                                ? setGameEnd("lose")
-                                : setGameEnd("win");
-                        } else if (playerSel === "scissors") {
-                            houseSel === "rock"
-                                ? setGameEnd("lose")
-                                : houseSel === "paper"
-                                ? setGameEnd("win")
-                                : houseSel === "scissors"
-                                ? setGameEnd("draw")
-                                : houseSel === "lizard"
-                                ? setGameEnd("win")
-                                : setGameEnd("lose");
-                        } else if (playerSel === "lizard") {
-                            houseSel === "rock"
-                                ? setGameEnd("lose")
-                                : houseSel === "paper"
-                                ? setGameEnd("win")
-                                : houseSel === "scissors"
-                                ? setGameEnd("lose")
-                                : houseSel === "lizard"
-                                ? setGameEnd("draw")
-                                : setGameEnd("win");
-                        } else if (playerSel === "spock") {
-                            houseSel === "rock"
-                                ? setGameEnd("win")
-                                : houseSel === "paper"
-                                ? setGameEnd("lose")
-                                : houseSel === "scissors"
-                                ? setGameEnd("win")
-                                : houseSel === "lizard"
-                                ? setGameEnd("lose")
-                                : setGameEnd("draw");
-                        }
-                    }
-                }
-            }, 1000);
-        },
-        [houseSel]
-    );
+    const playChoices: Record<string, string[]> = {
+        rock: ["scissors", "lizard"],
+        scissors: ["paper", "lizard"],
+        paper: ["rock", "spock"],
+        lizard: ["spock", "paper"],
+        spock: ["rock", "scissors"],
+    };
+
+    useEffect(() => {
+        if (!houseSel) return;
+
+        const timeout = setTimeout(() => {
+            if (playerSel === houseSel) {
+                setGameEnd("draw");
+            } else if (playChoices[playerSel].includes(houseSel)) {
+                setGameEnd("win");
+            } else {
+                setGameEnd("lose");
+            }
+        }, 1000);
+
+        return () => clearTimeout(timeout);
+    }, [houseSel, playerSel]);
 
     function playSel(play: Selections) {
         play === "rock"
             ? setPlayerSel("rock")
             : play === "paper"
-            ? setPlayerSel("paper")
-            : play === "scissors"
-            ? setPlayerSel("scissors")
-            : play === "lizard"
-            ? setPlayerSel("lizard")
-            : play === "spock" && setPlayerSel("spock");
+              ? setPlayerSel("paper")
+              : play === "scissors"
+                ? setPlayerSel("scissors")
+                : play === "lizard"
+                  ? setPlayerSel("lizard")
+                  : play === "spock" && setPlayerSel("spock");
     }
 
     useEffect(
@@ -371,8 +312,8 @@ function App() {
                                             {gameEnd === "win"
                                                 ? "you win"
                                                 : gameEnd === "lose"
-                                                ? "you lose"
-                                                : "draw"}
+                                                  ? "you lose"
+                                                  : "draw"}
                                         </p>
 
                                         <button
