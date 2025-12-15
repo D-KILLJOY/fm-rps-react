@@ -130,15 +130,7 @@ function App() {
     }, [houseSel, playerSel]);
 
     function playSel(play: Selections) {
-        play === "rock"
-            ? setPlayerSel("rock")
-            : play === "paper"
-              ? setPlayerSel("paper")
-              : play === "scissors"
-                ? setPlayerSel("scissors")
-                : play === "lizard"
-                  ? setPlayerSel("lizard")
-                  : play === "spock" && setPlayerSel("spock");
+        setPlayerSel(play);
     }
 
     useEffect(
